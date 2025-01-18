@@ -1,19 +1,32 @@
+/* ProductCard.css */
 .product-card {
     border: 1px solid #ddd;
-    border-radius: 5px;
-    padding: 1rem;
-    text-align: center;
+    border-radius: 8px;
+    overflow: hidden;
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    width: 278px; /* Increase card size */
+    height: 300px; /* Set consistent height for the cards */
   }
+  
   .product-card__image {
-    max-width: 100%;
-    height: auto;
-    border-radius: 5px;
+    width: 100%;
+    height: 180px; /* Adjust image height to fit larger card */
+    object-fit: cover;
   }
+  
+  .product-card__info {
+    padding: 10px;
+  }
+  
   .product-card__title {
-    margin: 0.5rem 0;
-  }
-  .product-card__price {
-    color: green;
+    font-size: 1.2rem; /* Slightly larger text */
     font-weight: bold;
+  }
+  
+  .product-card__price {
+    color: #007bff;
+    font-size: 1.1rem;
+    margin-top: 5px;
   }
   

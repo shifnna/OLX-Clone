@@ -1,11 +1,17 @@
-.home {
+/* HomePage.css */
+.home__content {
+    padding: 20px;
     display: flex;
     flex-direction: column;
-    min-height: 100vh;
+    align-items: center;
   }
-  .home__content {
-    flex: 1;
-    text-align: center;
-    padding: 2rem;
+  
+  .home__products {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); /* Ensure 4 cards per row */
+    gap: 20px;
+    width: calc(100% - 40px); /* Leave space on both sides */
+    max-width: 1200px; /* Limit the container's width */
+    margin: 0 auto; /* Center the container */
   }
   
