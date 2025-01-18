@@ -1,0 +1,19 @@
+.product-card {
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 1rem;
+    text-align: center;
+  }
+  .product-card__image {
+    max-width: 100%;
+    height: auto;
+    border-radius: 5px;
+  }
+  .product-card__title {
+    margin: 0.5rem 0;
+  }
+  .product-card__price {
+    color: green;
+    font-weight: bold;
+  }
+  
