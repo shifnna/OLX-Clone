@@ -1,9 +1,8 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import "./Header.css";
 import { FaSearch, FaBell, FaHeart, FaUserCircle } from "react-icons/fa";
 
-const Header = () => {
+const Header = ({ onSellClick }) => {
   
   return (
     <header className="header">
@@ -22,7 +21,7 @@ const Header = () => {
         <FaHeart className="header__icon" />
         <FaBell className="header__icon" />
         <FaUserCircle className="header__icon" />
-        <button className="header__sell-button">+ SELL</button>
+        <button onClick={onSellClick} className="header__sell-button">+ SELL</button>
       </nav>
     </header>
   );

@@ -1,0 +1,112 @@
+/* LoginPageModal.css */
+
+/* Modal Overlay (darkened background) */
+.modal {
+    position: fixed; /* Fixed relative to the viewport */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: rgba(0, 0, 0, 0.6); /* Semi-transparent dark background */
+    z-index: 1000; /* Ensure it appears on top of all content */
+  }
+  
+  /* Modal Content Container */
+  .modal__content {
+    background: #ffffff; /* Pure white for contrast */
+    padding: 30px 25px;
+    border-radius: 10px;
+    width: 400px;
+    max-width: 90%;
+    box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.3);
+    position: relative;
+    animation: fadeIn 0.3s ease-in-out; /* Smooth fade-in animation */
+  }
+  
+  /* Fade-in animation for the modal */
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(-20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  /* Overlay for closing (background click) */
+  .modal__overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: transparent; /* Transparent background for clicks */
+  }
+  
+  /* Modal Header */
+  .modal__content h2 {
+    font-size: 24px;
+    color: #333333;
+    margin-bottom: 20px;
+    font-weight: bold;
+    text-align: center;
+  }
+  
+  /* Form Input Fields */
+  .modal__content form input {
+    width: 92%;
+    padding: 10px 15px;
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 16px;
+    color: #555;
+    transition: border-color 0.2s ease-in-out;
+  }
+  
+  /* Input Focus Style */
+  .modal__content form input:focus {
+    outline: none;
+    border-color: #ff4500; /* OLX orange shade */
+    box-shadow: 0 0 5px rgba(255, 69, 0, 0.5);
+  }
+  
+  /* Submit Button */
+  .modal__content form button {
+    width: 100%;
+    padding: 12px 15px;
+    background: #0080ff; /* OLX orange shade */
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s ease-in-out;
+  }
+  
+  /* Submit Button Hover Effect */
+  .modal__content form button:hover {
+    background: #3c90e4; /* Slightly darker orange */
+  }
+  
+  /* Toggle Link */
+  .modal__toggle {
+    margin-top: 15px;
+    font-size: 14px;
+    color: #1a274b;
+    text-align: center;
+    cursor: pointer;
+    transition: color 0.2s ease-in-out;
+  }
+  
+  /* Toggle Link Hover */
+  .modal__toggle:hover {
+    color: #0c0d0f;
+  }
+  
