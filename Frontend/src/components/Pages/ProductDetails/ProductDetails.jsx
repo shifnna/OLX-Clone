@@ -1,12 +1,29 @@
-import React from "react";
+import React, { useState,useContext } from "react";
 import Header from "../../header/header";
 import Footer from "../../Footer/Footer";
 import Banner from "../../Header/banner";
 import "./ProductDetails.css";
 import phone from '../../../assets/phone.png'
+import { AuthContext } from '../../../App';
+import LoginPageModal from '../HomePage/LoginPageModal'
 
 const ProductDetails = () => {
+
+    const [showModal, setShowModal] = useState(false);
+      const { isLoggedIn } = useContext(AuthContext);
     
+      const handleSellClick = () => {
+        if (isLoggedIn) {
+          window.location.href = "/addProduct"; // Redirect to Add Product page
+        } else {
+          setShowModal(true); // Show the login modal
+        }
+      };
+    
+      const closeModal = () => {
+        setShowModal(false);
+      };
+
   const product = {
     image: "image1.jpg",
     title: "3 spoke steering wheel for willy jeep spare parts",
@@ -26,7 +43,7 @@ const ProductDetails = () => {
 
   return (
     <div>
-      <Header />
+      <Header onSellClick={handleSellClick} />
       <Banner />
       <div className="product-details">
         <div className="product-details__image-section">
@@ -64,6 +81,7 @@ const ProductDetails = () => {
           ></iframe>
         </div>
       </div>
+    {showModal && <LoginPageModal onClose={closeModal} />} {/* Modal is outside main */}
       <Footer />
     </div>
   );
