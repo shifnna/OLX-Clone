@@ -1,0 +1,88 @@
+/* Overlay */
+.sell-product-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 50;
+}
+
+/* Modal */
+.sell-product-modal {
+  background-color: white;
+  padding: 20px;
+  border-radius: 8px;
+  width: 400px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* Title */
+.sell-product-title {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 16px;
+  text-align: center;
+}
+
+/* Form */
+.sell-product-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px; /* Increased gap between input fields */
+}
+
+.sell-product-form input,
+.sell-product-form textarea {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box; /* Ensure padding doesn't affect width */
+}
+
+.sell-product-form textarea {
+  resize: none;
+  height: 80px;
+}
+
+/* Buttons */
+.sell-product-buttons {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.cancel-button,
+.submit-button {
+  padding: 12px 16px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  width: 48%; /* Make buttons responsive */
+}
+
+.cancel-button {
+  background-color: #f5f5f5;
+  color: #333;
+}
+
+.cancel-button:hover {
+  background-color: #e0e0e0;
+}
+
+.submit-button {
+  background-color: #007bff;
+  color: white;
+}
+
+.submit-button:hover {
+  background-color: #0056b3;
+}

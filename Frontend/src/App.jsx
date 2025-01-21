@@ -2,9 +2,8 @@ import React, { createContext, useState } from "react";
 import './App.css'
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import HomePage from "./components/Pages/HomePage/HomePage";
-import AddProductPage from "./components/Pages/AddProduct/AddProduct";
 import ProductDetails from "./components/Pages/ProductDetails/ProductDetails";
-import AddProduct from "./components/Pages/AddProduct/AddProduct";
+import SellProduct from "./components/Pages/AddProduct/SellProduct";
 
 export const AuthContext = createContext();
 
@@ -29,9 +28,8 @@ function App() {
     <Router>
       <Routes>
         <Route path="/" element={<HomePage />} />
-        <Route path="/addProduct" element={<AddProductPage />} />
         <Route path="/productDetails" element={<ProductDetails/>} />
-        <Route path="/AddProduct" element={<AddProduct />} />
+        <Route path="/SellProduct" element={<SellProduct />} />
       </Routes>
     </Router>
   </AuthProvider>
