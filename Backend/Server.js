@@ -1,29 +1,24 @@
-import dotenv from 'dotenv'
-dotenv.config()
-import express from 'express'
-import cors from 'cors'
-import {connectDB} from './Config/db.js';
-import morgan from 'morgan'
-import ProductRouter from './Router/ProductRoutes.js'
+import dotenv from 'dotenv';
+import express from 'express';
+import cors from 'cors';
+import morgan from 'morgan';
+import { connectDB } from './Config/db.js';
+import ProductRouter from './Router/ProductRoutes.js';
 
-const app = express()
-const PORT = process.env.PORT || 5000
+dotenv.config();
 
-app.use(cors())
-app.use(express.json())
-app.use(express.urlencoded({extended: true}))
-app.use(cors({
-    origin: 'http://localhost:5000', // Replace with your frontend's URL
-    methods: ['GET', 'POST'],
-    allowedHeaders: ['Content-Type'],
-}));
+const app = express();
+const PORT = process.env.PORT || 5000;
 
+app.use(cors());
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(morgan('dev'));
 
-app.use(morgan('dev'))
+app.use('/', ProductRouter);
 
-app.use('/', ProductRouter)
-
-app.listen(PORT, ()=>{
+app.listen(PORT, () => {
     console.log(`Server is running on http://localhost:${PORT}`);
-})
-connectDB()
+});
+
+connectDB();

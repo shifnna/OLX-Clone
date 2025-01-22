@@ -14,7 +14,7 @@ const HomePage = () => {
 
   const handleSellClick = () => {
     if (isLoggedIn) {
-      window.location.href = "/addProduct"; // Redirect to Add Product page
+      window.location.href = "/SellProduct"; // Redirect to Add Product page
     } else {
       setShowModal(true); // Show the login modal
     }

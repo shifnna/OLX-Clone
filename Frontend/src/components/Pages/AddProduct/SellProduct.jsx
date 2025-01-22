@@ -36,7 +36,7 @@ const SellProduct = ({ onClose, toast, getProducts }) => {
     form.append("condition", formData.condition);
 
     if (formData.image) {
-      form.append("productPhoto", formData.image);
+      form.append("image", formData.image);
     }
 
     try {
