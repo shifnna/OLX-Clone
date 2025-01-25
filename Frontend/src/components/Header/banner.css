@@ -1,13 +1,13 @@
 .banner {
     position: relative;
     width: 94.5%;
-    height: 12%px;
+    height: 12%;
     overflow: hidden;
   }
   
   .banner__image {
     width: 100%;
-    height: 100%;
+    height: 200px;
     object-fit: cover;
     margin-left: 6%;
     margin-right: 6%;

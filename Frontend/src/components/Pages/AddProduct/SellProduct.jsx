@@ -1,8 +1,11 @@
 import React, { useState } from "react";
 import axios from "axios";
 import "./SellProduct.css";
+import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
-const SellProduct = ({ onClose, toast, getProducts }) => {
+const SellProduct = () => {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     name: "",
     description: "",
@@ -40,14 +43,12 @@ const SellProduct = ({ onClose, toast, getProducts }) => {
     }
 
     try {
+      navigate("/");
       await axios.post("http://localhost:5000/create-product", form, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
       });
-      toast.success("Product added successfully");
-      onClose();
-      getProducts()
     } catch (error) {
       toast.error(
         error.response?.data?.error || "Error uploading data"
@@ -113,7 +114,7 @@ const SellProduct = ({ onClose, toast, getProducts }) => {
             required
           />
           <div className="sell-product-buttons">
-            <button type="button" onClick={onClose} className="cancel-button">
+            <button type="button" onClick={() => navigate("/")} className="cancel-button">
               Cancel
             </button>
             <button type="submit" className="submit-button">

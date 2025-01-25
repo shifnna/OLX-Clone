@@ -109,4 +109,12 @@
   .modal__toggle:hover {
     color: #0c0d0f;
   }
+  .error {
+    color: red;
+    font-size: 0.9rem;
+    margin-top: 4px;
+  }
+  .form-group {
+    margin-bottom: 15px;
+  }
   

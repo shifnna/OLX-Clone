@@ -1,4 +1,4 @@
-import React, { useState,useContext }  from "react";
+import React, { useState, useEffect, useContext } from "react";
 import Footer from "../../Footer/Footer";
 import Header from "../../header/header";
 import ProductCard from "../../ProductCard/ProductCard";
@@ -6,15 +6,31 @@ import "./HomePage.css";
 import Banner from "../../Header/banner";
 import LoginPageModal from "./LoginPageModal";
 import { AuthContext } from '../../../App';
+import axios from "axios"; // Import axios for API requests
 
 const HomePage = () => {
-
   const [showModal, setShowModal] = useState(false);
+  const [products, setProducts] = useState([]); // State to store products from the backend
   const { isLoggedIn } = useContext(AuthContext);
+
+  // Fetch products from the server
+  useEffect(() => {
+    const fetchProducts = async () => {      
+      try {
+        const response = await axios.get('http://localhost:5000/products'); 
+        console.log('Fetched Products:', response.data); // Debugging
+        setProducts(response.data); 
+      } catch (error) {
+        console.error("Error fetching products:", error);
+      }
+    };
+
+    fetchProducts();
+  }, []);
 
   const handleSellClick = () => {
     if (isLoggedIn) {
-      window.location.href = "/SellProduct"; // Redirect to Add Product page
+      window.location.href = "/SellProduct"; 
     } else {
       setShowModal(true); // Show the login modal
     }
@@ -24,29 +40,24 @@ const HomePage = () => {
     setShowModal(false);
   };
 
-  const products = [
-    { id: 1, image: "image1.jpg", title: "3 Bds - 3 Ba - 250 ft2", price: "47,00,000" },
-    { id: 2, image: "image2.jpg", title: "3 spoke steering wheel", price: "2,500" },
-    { id: 3, image: "image3.jpg", title: "iPhone in good condition", price: "16,999" },
-    { id: 4, image: "image4.jpg", title: "Brand new phone", price: "28,000" },
-    
-  ];
-
   return (
     <div className="home">
-  <Header onSellClick={handleSellClick} />
-  <Banner />
-  <main className={`home__content ${showModal ? "blurred" : ""}`}>
-    <div className="home__products">
-      {products.map((product) => (
-        <ProductCard key={product.id} product={product} />
-      ))}
+      <Header onSellClick={handleSellClick} />
+      <Banner />
+      <main className={`home__content ${showModal ? "blurred" : ""}`}>
+        <div className="home__products">
+          {products.length > 0 ? (
+            products.map((product) => (
+              <ProductCard key={product._id} product={product} /> // Use _id from MongoDB
+            ))
+          ) : (
+            <p>No products available</p>
+          )}
+        </div>
+      </main>
+      {showModal && <LoginPageModal onClose={closeModal} />} {/* Modal is outside main */}
+      <Footer />
     </div>
-  </main>
-  {showModal && <LoginPageModal onClose={closeModal} />} {/* Modal is outside main */}
-  <Footer />
-</div>
-
   );
 };
 

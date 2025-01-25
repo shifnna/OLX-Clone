@@ -1,10 +1,12 @@
 import React from "react";
 import "./Header.css";
 import { FaSearch, FaBell, FaHeart, FaUserCircle } from "react-icons/fa";
+import { AuthContext } from "../../App"; 
 
 const Header = ({ onSellClick }) => {
-  
-  return (
+  // const { user } = useContext(AuthContext);
+
+  return (    
     <header className="header">
       <div className="header__logo">OLX Clone</div>
       <div className="header__search-bar">
@@ -20,6 +22,7 @@ const Header = ({ onSellClick }) => {
       <nav className="header__nav">
         <FaHeart className="header__icon" />
         <FaBell className="header__icon" />
+        {/* {user && <span className="header__username">{user.name}</span>} */}
         <FaUserCircle className="header__icon" />
         <button onClick={onSellClick} className="header__sell-button">+ SELL</button>
       </nav>
