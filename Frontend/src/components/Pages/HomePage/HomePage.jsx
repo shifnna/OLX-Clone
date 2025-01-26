@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from "react";
 import Footer from "../../Footer/Footer";
-import Header from "../../header/header";
+import Header from "../../Header/Header";
 import ProductCard from "../../ProductCard/ProductCard";
 import "./HomePage.css";
 import Banner from "../../Header/banner";

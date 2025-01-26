@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 
-const DB_URL = process.env.DB_URL || 'mongodb://127.0.0.1:27017/olx';
+const DB_URL = process.env.MONGO_URI || 'mongodb://127.0.0.1:27017/olx';
 
 export const connectDB = async () => {
     try {

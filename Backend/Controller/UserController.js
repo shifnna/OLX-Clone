@@ -23,6 +23,8 @@ export const loginUser = async (req, res) => {
 
         const token = await generateToken({ id: user._id, email: user.email });
         console.log("Token generated:", token); // Debug log
+        
+        req.session.user = { id: user._id, email: user.email, name: user.name };
 
         return res.status(200).json({
             message: "Successfully logged in",

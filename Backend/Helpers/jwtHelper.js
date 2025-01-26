@@ -18,3 +18,4 @@ export const generateToken = async (payload) => {
     throw new Error('Token generation failed');
   }
 };
+

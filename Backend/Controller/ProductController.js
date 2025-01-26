@@ -1,4 +1,5 @@
 import Product from '../Models/ProductSchema.js';
+import Wishlist from "../Models/wishlistSchema.js"; // Assuming Wishlist model exists
 
 export const getProducts = async (req, res) => {
     try {
@@ -71,3 +72,34 @@ export const getAllProducts = async (req, res) => {
         res.status(500).json({ error: 'Server error' });
     }
 };
+
+export const addWishlist = async (req, res) => {
+    console.log("Request body:", req.body); // Log the request body
+  
+    const { productId, action } = req.body;
+  
+    try {
+      if (!req.user) {
+        return res.status(401).json({ error: "Unauthorized" });
+      }
+  
+      const userId = req.user.id; // Get the userId from the JWT token
+  
+      if (action === "add") {
+        // Add product to wishlist
+        await Wishlist.create({ userId, productId });
+        return res.status(200).json({ message: "Product added to wishlist" });
+      } else if (action === "remove") {
+        // Remove product from wishlist
+        await Wishlist.findOneAndDelete({ userId, productId });
+        return res.status(200).json({ message: "Product removed from wishlist" });
+      }
+  
+      res.status(400).json({ error: "Invalid action" });
+    } catch (error) {
+      console.error("Error updating wishlist:", error);
+      res.status(500).json({ error: "Server error" });
+    }
+  };
+  
+

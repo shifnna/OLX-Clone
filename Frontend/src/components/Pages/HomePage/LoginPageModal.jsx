@@ -48,12 +48,16 @@ const LoginPageModal = ({ onClose }) => {
                 const response = await axios.post("http://localhost:5000/user/login", {
                     email: formData.email,
                     password: formData.password,
-                });
+                }, { withCredentials: true }); // Allow cookies for session handling
                 
                 if (response.status === 200) {
                     console.log("Login response data:", response.data.user._id);
                     alert("Login successful!");
                     const { user, token } = response.data;
+                    if (token) {
+                        localStorage.setItem("token", token);  // Save the token in localStorage
+                        console.log("Token saved:", token);
+                    }
                     login(user);
                     onClose();
                     navigate("/"); 
