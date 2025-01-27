@@ -1,16 +1,6 @@
 import Product from '../Models/ProductSchema.js';
-import Wishlist from "../Models/wishlistSchema.js"; // Assuming Wishlist model exists
+import Wishlist from "../Models/wishlistSchema.js";
 
-export const getProducts = async (req, res) => {
-    try {
-        const products = await Product.find();
-        console.log(products, 'products');
-        return res.status(200).json({ products, message: 'Products fetched successfully' });
-    } catch (error) {
-        console.error('Error getProducts', error);
-        res.status(400).json({ error: 'Error getting products' });
-    }
-};
 
 export const getSingleProduct = async (req, res) => {
     const { productId } = req.params;
@@ -64,14 +54,25 @@ export const createProduct = async (req, res) => {
 };
 
 export const getAllProducts = async (req, res) => {
+    const { search } = req.query;
     try {
-        const products = await Product.find(); // Fetch all products from the database        
+        let query = {};
+        if (search) {
+            query = {
+                $or: [
+                    { name: { $regex: search, $options: "i" } },
+                    { description: { $regex: search, $options: "i" } },
+                ],
+            };
+        }
+        const products = await Product.find(query);
         res.status(200).json(products);
     } catch (error) {
-        console.error('Error fetching products:', error);
-        res.status(500).json({ error: 'Server error' });
+        console.error("Error fetching products:", error);
+        res.status(500).json({ error: "Server error" });
     }
 };
+
 
 export const addWishlist = async (req, res) => {
     console.log("Request body:", req.body); // Log the request body

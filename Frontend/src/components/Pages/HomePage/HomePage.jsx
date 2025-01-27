@@ -10,14 +10,17 @@ import axios from "axios"; // Import axios for API requests
 
 const HomePage = () => {
   const [showModal, setShowModal] = useState(false);
-  const [products, setProducts] = useState([]); // State to store products from the backend
+  const [products, setProducts] = useState([]);
+  const [searchTerm, setSearchTerm] = useState("");
   const { isLoggedIn } = useContext(AuthContext);
 
   // Fetch products from the server
   useEffect(() => {
     const fetchProducts = async () => {      
       try {
-        const response = await axios.get('http://localhost:5000/products'); 
+        const response = await axios.get('http://localhost:5000/products',{
+          params: { search: searchTerm }, 
+        }); 
         console.log('Fetched Products:', response.data); // Debugging
         setProducts(response.data); 
       } catch (error) {
@@ -26,7 +29,11 @@ const HomePage = () => {
     };
 
     fetchProducts();
-  }, []);
+  }, [searchTerm]);// Refetch products when the search term changes
+
+  const handleSearchChange = (e) => {
+    setSearchTerm(e.target.value); // Update search term as user types
+  };
 
   const handleSellClick = () => {
     if (isLoggedIn) {
@@ -42,7 +49,7 @@ const HomePage = () => {
 
   return (
     <div className="home">
-      <Header onSellClick={handleSellClick} />
+      <Header onSellClick={handleSellClick} searchTerm={searchTerm} handleSearchChange={handleSearchChange} />
       <Banner />
       <main className={`home__content ${showModal ? "blurred" : ""}`}>
         <div className="home__products">

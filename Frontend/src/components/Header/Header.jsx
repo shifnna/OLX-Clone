@@ -1,9 +1,9 @@
 import React from "react";
 import "./Header.css";
 import { FaSearch, FaBell, FaHeart, FaUserCircle } from "react-icons/fa";
-import { AuthContext } from "../../App"; 
+// import { AuthContext } from "../../App"; 
 
-const Header = ({ onSellClick }) => {
+const Header = ({ onSellClick, searchTerm, handleSearchChange }) => {
   // const { user } = useContext(AuthContext);
 
   return (    
@@ -12,6 +12,8 @@ const Header = ({ onSellClick }) => {
       <div className="header__search-bar">
         <input
           type="text"
+          value={searchTerm}
+          onChange={handleSearchChange}
           className="header__search-input"
           placeholder="Search \"
         />

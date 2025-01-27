@@ -1,6 +1,6 @@
 import React, { useState, useContext } from "react";
 import { useLocation } from "react-router-dom"; // Use useLocation to access passed state
-import Header from "../../header/header";
+import Header from "../../Header/Header";
 import Footer from "../../Footer/Footer";
 import Banner from "../../Header/banner";
 import "./ProductDetails.css";
