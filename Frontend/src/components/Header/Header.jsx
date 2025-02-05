@@ -9,14 +9,6 @@ const Header = ({ onWishClick, onSellClick, searchTerm, handleSearchChange }) =>
   const [showLogout, setShowLogout] = useState(false);
 
   console.log("Current User in Header:", user);
-  const goToWishlist = () => {
-    console.log("Current user in wishlist: ", user); // Debug here
-    if (user && user._id) {
-      navigate(`/wishlist?userId=${user._id}`);
-    } else {
-      console.error("User ID is undefined");
-    }
-  };
   
   return (
     <div>
@@ -35,7 +27,7 @@ const Header = ({ onWishClick, onSellClick, searchTerm, handleSearchChange }) =>
           </button>
         </div>
         <nav className="header__nav">
-          <FaHeart onClick={goToWishlist} className="header__icon" />
+          <FaHeart onClick={()=>{onWishClick()}} className="header__icon" />
           <FaBell className="header__icon" />
 
           {/* User Circle with Hover for Logout */}

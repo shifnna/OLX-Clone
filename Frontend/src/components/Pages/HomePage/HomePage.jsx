@@ -7,6 +7,7 @@ import Banner from "../../Header/banner";
 import LoginPageModal from "./LoginPageModal";
 import { AuthContext } from '../../../App';
 import axios from "axios"; 
+import { useNavigate } from "react-router-dom"; 
 
 const HomePage = () => {
   const [showModal, setShowModal] = useState(false);
@@ -14,43 +15,35 @@ const HomePage = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const { isLoggedIn,user } = useContext(AuthContext);
   const [wishlist, setWishlist] = useState([]);
+  const navigate = useNavigate(); 
 
   useEffect(() => {
     const fetchProducts = async () => {      
       try {
-        const response = await axios.get('http://localhost:5000/products',{
+        const response = await axios.get('http://localhost:5000/products', {
           params: { search: searchTerm }, 
-        }); 
-        console.log("User details:", user); 
-
-        console.log('Fetched Products:', response.data); 
-        setProducts(response.data); 
+        });
+        setProducts(response.data);
       } catch (error) {
         console.error("Error fetching products:", error);
       }
     };
-
+  
+    const fetchWishlist = async () => {
+      if (!isLoggedIn || !user?.id) return;
+  
+      try {
+        const wishlistResponse = await axios.get(`http://localhost:5000/wishlist/${user.id}`);
+        setWishlist(wishlistResponse.data.wishlist.map(item => item.productId._id)); // Extract product IDs
+      } catch (error) {
+        console.error("Error fetching wishlist:", error);
+      }
+    };
+  
     fetchProducts();
-  }, [searchTerm]);// Refetch products when the search term changes
-
-
-  // useEffect(() => {
-  //   if (isLoggedIn && user) {
-  //     const fetchWishlist = async () => {
-  //       try {
-  //         const response = await axios.get(
-  //           `http://localhost:5000/wishlist/${user._id}`
-  //         );
-  //         setWishlist(response.data.wishlist);
-  //       } catch (error) {
-  //         console.error("Error fetching wishlist:", error);
-  //       }
-  //     };
-
-  //     fetchWishlist();
-  //   }
-  // }, [isLoggedIn, user]); // Fetch wishlist only when user is logged in
-
+    fetchWishlist();
+  }, [searchTerm, isLoggedIn, user?.id]); // Add dependencies
+  
 
 
   const handleSearchChange = (e) => {
@@ -68,15 +61,12 @@ const HomePage = () => {
   const handleWishClick = () => {
     if (isLoggedIn) {
       console.log(user);
-      window.location.href = `/wishlist/${user._id}`;
+      navigate(`/wishlist`);
     } else {
       setShowModal(true);
     }
   };  
 
-  const closeModal = () => {
-    setShowModal(false);
-  };
 
   return (
     <div className="home">

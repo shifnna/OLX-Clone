@@ -1,24 +1,24 @@
-import { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
+import { useEffect, useState, useContext } from "react";
 import axios from "axios";
+import { AuthContext } from "../../../App";
+import ProductCard from "../../ProductCard/ProductCard"
+import Header from "../../Header/Header";
+import Footer from "../../Footer/Footer";
+
 
 const WishlistPage = () => {
   const [wishlist, setWishlist] = useState([]);
-  const location = useLocation();
-  const queryParams = new URLSearchParams(location.search);
-  const userId = queryParams.get("userId");
-
-  console.log("Extracted userId from URL:", userId); // Debugging
+  const { user,isLoggedIn } = useContext(AuthContext);
 
   useEffect(() => {
     const fetchWishlist = async () => {
-      if (!userId) {
+      if (!isLoggedIn || !user?.id) {
         console.error("User ID is missing in URL");
         return;
       }
 
       try {
-        const response = await axios.get(`http://localhost:5000/wishlist/${userId}`);
+        const response = await axios.get(`http://localhost:5000/wishlist/${user.id}`);
         setWishlist(response.data.wishlist);
       } catch (error) {
         console.error("Error fetching wishlist:", error);
@@ -26,22 +26,22 @@ const WishlistPage = () => {
     };
 
     fetchWishlist();
-  }, [userId]);
+  }, [isLoggedIn,user?.id]);
 
   return (
     <div>
-      <h1>Your Wishlist</h1>
-      {wishlist.length > 0 ? (
-        wishlist.map((item) => (
-          <div key={item.productId._id}>
-            <h2>{item.productId.name}</h2>
-            <p>{item.productId.description}</p>
-            <p>Price: ${item.productId.price}</p>
-          </div>
-        ))
-      ) : (
-        <p>No items in your wishlist</p>
-      )}
+       <Header/>
+      <h2>Your Wishlist</h2>
+      <div style={{ display: "flex", flexWrap: "wrap", gap: "20px" }}>
+        {wishlist.length > 0 ? (
+          wishlist.map((item) => (
+            <ProductCard key={item.productId._id} product={item.productId} isWishlisted={true} />
+          ))
+        ) : (
+          <p>No items in your wishlist</p>
+        )}
+      </div>
+      <Footer/>
     </div>
   );
 };
