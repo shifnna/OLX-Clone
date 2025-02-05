@@ -9,7 +9,6 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
-import session from 'express-session';
 
 
 
@@ -18,17 +17,8 @@ dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-app.use(session({
-    secret: 'your-secret-key',
-    resave: false,
-    saveUninitialized: true,
-    cookie: { secure: false },  // Set secure to true if you're using HTTPS
-}));
-
-
 app.use(cors({
-    origin: "http://localhost:3000",
-    credentials: true, // Allow cookies
+    origin: "http://localhost:3001",
 }));//This will allow your frontend and backend to communicate across different ports. You can also configure CORS more strictly depending on your needs.
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));

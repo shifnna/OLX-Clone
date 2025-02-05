@@ -41,24 +41,24 @@ const LoginPageModal = ({ onClose }) => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        if (!validateForm()) return; // Prevent submission if form is invalid
+        if (!validateForm()) return;
 
         if (isLogin) {
             try {
                 const response = await axios.post("http://localhost:5000/user/login", {
                     email: formData.email,
                     password: formData.password,
-                }, { withCredentials: true }); // Allow cookies for session handling
+                });
                 
                 if (response.status === 200) {
-                    console.log("Login response data:", response.data.user._id);
-                    alert("Login successful!");
                     const { user, token } = response.data;
+
                     if (token) {
-                        localStorage.setItem("token", token);  // Save the token in localStorage
-                        console.log("Token saved:", token);
+                        localStorage.setItem("token", token); 
+                        localStorage.setItem("user", JSON.stringify(user));
                     }
-                    login(user);
+                    login(user,token);
+                    alert("Login successful!");
                     onClose();
                     navigate("/"); 
                 } else {

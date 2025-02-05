@@ -24,18 +24,17 @@ export const loginUser = async (req, res) => {
         const token = await generateToken({ id: user._id, email: user.email });
         console.log("Token generated:", token); // Debug log
         
-        req.session.user = { id: user._id, email: user.email, name: user.name };
-
         return res.status(200).json({
             message: "Successfully logged in",
             token,
-            user: { id: user._id, email: user.email, name:user.name },
+            user: { id: user._id, email: user.email, name: user.name,wishlist: user.wishlist },
         });
     } catch (error) {
         console.error("Error during login:", error);
         res.status(500).json({ error: "Server error" });
     }
 };
+
 
 
 export const signupUser = async (req, res) => {
@@ -52,7 +51,7 @@ export const signupUser = async (req, res) => {
         }
 
         const hashedPassword = await bcrypt.hash(password, 10);
-        const newUser = new User({ name, email, password: hashedPassword });
+        const newUser = new User({ name, email, password: hashedPassword ,wishlist: []});
         await newUser.save();
 
         res.status(201).json({ message: "User registered successfully" });
